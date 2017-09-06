@@ -2,11 +2,21 @@ package com.mongo.test;
 
 import com.mongo.dao.OrdersDao;
 import com.mongo.entity.Item;
+import com.mongo.entity.MongoPage;
 import com.mongo.entity.Orders;
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import com.mongodb.QueryBuilder;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.data.mongodb.core.query.BasicQuery;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -130,5 +140,69 @@ public class OrdersTest {
         ordersDao.dropCollection(collectionName);
     }
 
+    /**
+     * 说明：
+     * （1）findOne：返回满足指定查询条件的文档，如果多个文档满足查询，该方法返回第一个文档，根据自然顺序返回文件在磁盘上的顺序,在覆盖的集合中，自然顺序与插入顺序相同。如果没找到对应的文档，会返回null。
+     * （2）find：返回满足指定查询条件的所有文档。
+     * (3) find(BasicQuery)：自定义查询
+     */
+    @Test
+    public void testFindOne() throws ParseException { // 测试testFindOne方法添加
+        Query query = new Query(Criteria.where("onumber").is("002"));
+        Orders order = ordersDao.findOne(query, collectionName);
+        System.out.println(JSONObject.fromObject(order));
+    }
 
+    @Test
+    public void testFind() throws ParseException {
+        Query query = new Query(Criteria.where("onumber").is("001").and("cname").is("zcy"));
+        List<Orders> orders = ordersDao.find(query, collectionName);
+        System.out.println("size()==>" + orders.size());
+        for (Orders o : orders) {
+            System.out.println(JSONArray.fromObject(o));
+        }
+    }
+
+    @Test
+    public void testFind_BasicQuery() throws ParseException {
+        BasicDBList basicDBList = new BasicDBList();
+        basicDBList.add(new BasicDBObject("onumber", "001"));
+        basicDBList.add(new BasicDBObject("cname", "zcy"));
+        DBObject obj = new BasicDBObject();
+        obj.put("$or", basicDBList);
+        Query query = new BasicQuery(obj);
+        List<Orders> orders = ordersDao.find(query, collectionName);
+        System.out.println("size()==>" + orders.size());
+        for (Orders o : orders) {
+            System.out.println(JSONArray.fromObject(o));
+        }
+    }
+
+    @Test
+    public void testFind_FieldsQuery() throws ParseException { // find查询时返回指定字段
+        QueryBuilder queryBuilder = new QueryBuilder();
+        queryBuilder.or(new BasicDBObject("onumber", "001"), new BasicDBObject("cname", "zcy"));
+        BasicDBObject fieldsObject = new BasicDBObject();
+        fieldsObject.put("onumber", 1);
+        fieldsObject.put("cname", 1);
+        Query query = new BasicQuery(queryBuilder.get(), fieldsObject);
+        List<Orders> orders = ordersDao.find(query, collectionName);
+        System.out.println("size()==>" + orders.size());
+        for (Orders o : orders) {
+            System.out.println(JSONArray.fromObject(o));
+        }
+    }
+
+    @Test
+    public void testFindPagination() throws ParseException { // 分页查询
+        MongoPage<Orders> page = new MongoPage<>();
+        page.setPageNo(2);
+        page.setPageSize(3);
+        page = ordersDao.selectPagination(page, new BasicDBObject("onumber","001"), collectionName, "onumber");
+        System.out.println("TotalCount：" + page.getRowCount());
+        System.out.println("FindCount：" + page.getDatas().size());
+        for (Orders o : page.getDatas()) {
+            System.out.println(JSONArray.fromObject(o));
+        }
+    }
 }
