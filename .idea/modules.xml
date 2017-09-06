@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/springMongoT.iml" filepath="$PROJECT_DIR$/springMongoT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mongo.iml" filepath="$PROJECT_DIR$/mongo.iml" />
     </modules>
   </component>
 </project>
