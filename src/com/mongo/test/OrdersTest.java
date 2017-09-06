@@ -144,7 +144,7 @@ public class OrdersTest {
      * 说明：
      * （1）findOne：返回满足指定查询条件的文档，如果多个文档满足查询，该方法返回第一个文档，根据自然顺序返回文件在磁盘上的顺序,在覆盖的集合中，自然顺序与插入顺序相同。如果没找到对应的文档，会返回null。
      * （2）find：返回满足指定查询条件的所有文档。
-     * (3) find(BasicQuery)：自定义查询
+     *  (3) find(BasicQuery)：自定义查询
      */
     @Test
     public void testFindOne() throws ParseException { // 测试testFindOne方法添加
@@ -198,7 +198,7 @@ public class OrdersTest {
         MongoPage<Orders> page = new MongoPage<>();
         page.setPageNo(2);
         page.setPageSize(3);
-        page = ordersDao.selectPagination(page, new BasicDBObject("onumber","001"), collectionName, "onumber");
+        page = ordersDao.selectPagination(page, new BasicDBObject("onumber", "001"), collectionName, "onumber");
         System.out.println("TotalCount：" + page.getRowCount());
         System.out.println("FindCount：" + page.getDatas().size());
         for (Orders o : page.getDatas()) {
