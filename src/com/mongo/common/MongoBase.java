@@ -1,5 +1,7 @@
 package com.mongo.common;
 
+import org.springframework.data.mongodb.core.query.Query;
+
 import java.util.List;
 
 public interface MongoBase<T> {
@@ -34,8 +36,8 @@ public interface MongoBase<T> {
     /**
      * 根据条件删除
      *
-     * @param field          查询-键
-     * @param value          查询-值
+     * @param field          键
+     * @param value          值
      * @param cls            类型
      * @param collectionName 集合名
      */
@@ -44,8 +46,8 @@ public interface MongoBase<T> {
     /**
      * 根据条件删除
      *
-     * @param field          查询-键
-     * @param value          查询-值
+     * @param field          键
+     * @param value          值
      * @param collectionName 集合名
      */
     void remove(String field, String value, String collectionName);
@@ -53,8 +55,8 @@ public interface MongoBase<T> {
     /**
      * 根据条件删除
      *
-     * @param field 查询-键
-     * @param value 查询-值
+     * @param field 键
+     * @param value 值
      * @param cls   类型
      */
     void remove(String field, String value, Class cls);
@@ -74,5 +76,15 @@ public interface MongoBase<T> {
     void dropCollection(Class cls);
 
     /**=================================================================================================================*/
+
+    /**
+     * 根据条件查询
+     *
+     * @param query          查询条件
+     * @param cls            查询类型
+     * @param collectionName 集合名
+     * @return 查询结果
+     */
+    T findOne(Query query, Class cls, String collectionName);
 
 }

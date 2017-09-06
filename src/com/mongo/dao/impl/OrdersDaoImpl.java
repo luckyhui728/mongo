@@ -56,5 +56,10 @@ public class OrdersDaoImpl implements OrdersDao {
         mongoTemplate.dropCollection(cls);
     }
 
+    @Override
+    public Orders findOne(Query query, Class cls, String collectionName) {
+        return mongoTemplate.findOne(query, Orders.class, collectionName);
+    }
+
 
 }
