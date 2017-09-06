@@ -12,8 +12,6 @@ import java.util.List;
 
 public interface MongoBase<T> {
 
-    /**=================================================================================================================*/
-
     /**
      * 添加，如果ObjectId存在则覆盖
      *
@@ -37,7 +35,6 @@ public interface MongoBase<T> {
      */
     void insertAll(List<T> object);
 
-    /**=================================================================================================================*/
 
     /**
      * 根据字段、集合类型、集合名称删除记录
@@ -81,7 +78,6 @@ public interface MongoBase<T> {
      */
     void dropCollection(Class cls);
 
-    /**=================================================================================================================*/
 
     /**
      * （Query查询）根据条件查询，如果有多条记录只返回第一条（插入顺序）
@@ -121,7 +117,6 @@ public interface MongoBase<T> {
      */
     List<T> basicQuery(BasicQuery query, String collectionName);
 
-    /**=================================================================================================================*/
 
     /**
      * 根据查询条件修改数据，如果目标字段不存在则创建
@@ -194,15 +189,16 @@ public interface MongoBase<T> {
      */
     void basicUpdate(Query query, BasicUpdate update, String collectionName);
 
-    /**=================================================================================================================*/
 
     /**
      * 分页查询
+     * 模糊搜索：query.addCriteria(Criteria.where(condition.getKey()).regex(".*?\\" +condition.getValue().toString()+ ".*"));
+     * 去除重复：distinct()
      *
      * @param page           分页参数
      * @param query          查询条件
      * @param collectionName 集合名称
-     * @return
+     * @return 结果集
      */
     MongoPage<Orders> selectPagination(MongoPage<Orders> page, DBObject query, String collectionName, String sortName);
 }
