@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="war">
+    <output-path>$PROJECT_DIR$/classes/artifacts/war</output-path>
+    <root id="root">
+      <element id="directory" name="lib">
+        <element id="archive" name="mongo.jar">
+          <element id="module-output" name="mongo" />
+        </element>
+        <element id="library" level="project" name="lib" />
+      </element>
+      <element id="javaee-facet-resources" facet="mongo/web/Web" />
+    </root>
+  </artifact>
+</component>
