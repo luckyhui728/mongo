@@ -29,13 +29,12 @@ import java.util.List;
 public class OrdersTest {
 
     private static OrdersDao ordersDao;
-    private static ApplicationContext app;
     private static String collectionName;
 
     @BeforeClass
     public static void initSpring() {
         try {
-            app = new FileSystemXmlApplicationContext("classpath:applicationContext.xml");
+            ApplicationContext app = new FileSystemXmlApplicationContext("classpath:applicationContext.xml");
             ordersDao = (OrdersDao) app.getBean("ordersDao");
             collectionName = "orders";
         } catch (Exception e) {
@@ -52,13 +51,13 @@ public class OrdersTest {
     @Test
     public void testSave() throws ParseException { // 测试Save方法添加
         SimpleDateFormat form = new SimpleDateFormat("yyyy-mm-dd");
-        //订单
+        // 订单
         Orders order = new Orders();
         order.setOnumber("001");
         order.setDate(form.parse("2015-07-25"));
         order.setCname("zcy");
-        //订单详情
-        List<Item> items = new ArrayList<Item>();
+        // 订单详情
+        List<Item> items = new ArrayList<>();
         Item item1 = new Item();
         item1.setPnumber("p001");
         item1.setPrice(4.0);
@@ -76,13 +75,13 @@ public class OrdersTest {
     @Test
     public void testInsert() throws ParseException { // 测试Insert方法添加
         SimpleDateFormat form = new SimpleDateFormat("yyyy-mm-dd");
-        //订单
+        // 订单
         Orders order = new Orders();
         order.setOnumber("001");
         order.setDate(form.parse("2015-07-25"));
         order.setCname("zcy");
-        //订单详情
-        List<Item> items = new ArrayList<Item>();
+        // 订单详情
+        List<Item> items = new ArrayList<>();
         Item item1 = new Item();
         item1.setPnumber("p001");
         item1.setPrice(4.0);
@@ -99,16 +98,16 @@ public class OrdersTest {
 
     @Test
     public void testInsertAll() throws ParseException { // 测试InsertAll方法添加
-        List<Orders> orders = new ArrayList<Orders>();
+        List<Orders> orders = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
             SimpleDateFormat form = new SimpleDateFormat("yyyy-mm-dd");
-            //订单
+            // 订单
             Orders order = new Orders();
             order.setOnumber("00" + i);
             order.setDate(form.parse("2015-07-25"));
             order.setCname("zcy" + i);
-            //订单详情
-            List<Item> items = new ArrayList<Item>();
+            // 订单详情
+            List<Item> items = new ArrayList<>();
             Item item1 = new Item();
             item1.setPnumber("p00" + i);
             item1.setPrice(4.0 + i);
@@ -144,7 +143,7 @@ public class OrdersTest {
      * 说明：
      * （1）findOne：返回满足指定查询条件的文档，如果多个文档满足查询，该方法返回第一个文档，根据自然顺序返回文件在磁盘上的顺序,在覆盖的集合中，自然顺序与插入顺序相同。如果没找到对应的文档，会返回null。
      * （2）find：返回满足指定查询条件的所有文档。
-     *  (3) find(BasicQuery)：自定义查询
+     * (3) find(BasicQuery)：自定义查询
      */
     @Test
     public void testFindOne() throws ParseException { // 测试testFindOne方法添加
