@@ -4,19 +4,19 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Mr.Z on 2017/9/5.
+ * 订单实体类
  */
 public class Orders {
 
-    //ID
+    // ID
     private String id;
-    //订单号
+    // 订单号
     private String onumber;
-    //日期
+    // 日期
     private Date date;
-    //客户名称
+    // 客户名称
     private String cname;
-    //订单
+    // 订单
     private List<Item> items;
 
     public String getId() {
