@@ -136,7 +136,7 @@ public class OrdersTest {
 
     @Test
     public void testDropCollection() throws ParseException {
-        ordersDao.dropCollection(collectionName);
+        ordersDao.dropCollection("role");
     }
 
     /**
