@@ -109,16 +109,16 @@ public class OrdersDaoImpl implements OrdersDao {
     }
 
     @Override
-    public MongoPage<Orders> selectPagination(MongoPage<Orders> page, DBObject query, String collectionName, String sortName) {
+    public MongoPage<Orders> selectPagination(MongoPage<Orders> page, DBObject query, String collectionName, String sortName, Sort.Direction direction) {
         Query basicQuery = new BasicQuery(query);
         // 查询总数
-        int count = (int) mongoTemplate.count(basicQuery, Orders.class);
+        int count = (int) mongoTemplate.count(basicQuery, collectionName);
         page.setRowCount(count);
         // 排序
-        basicQuery.with(new Sort(Sort.Direction.ASC, sortName));
+        basicQuery.with(new Sort(direction, sortName));
         basicQuery.limit(page.getPageSize());
         basicQuery.skip(page.getSkip());
-        List<Orders> datas = mongoTemplate.find(basicQuery, Orders.class);
+        List<Orders> datas = mongoTemplate.find(basicQuery, Orders.class, collectionName);
         page.setDatas(datas);
         return page;
     }

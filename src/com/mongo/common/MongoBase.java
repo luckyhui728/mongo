@@ -3,6 +3,7 @@ package com.mongo.common;
 import com.mongo.entity.MongoPage;
 import com.mongo.entity.Orders;
 import com.mongodb.DBObject;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.BasicUpdate;
 import org.springframework.data.mongodb.core.query.Query;
@@ -200,5 +201,5 @@ public interface MongoBase<T> {
      * @param collectionName 集合名称
      * @return 结果集
      */
-    MongoPage<Orders> selectPagination(MongoPage<Orders> page, DBObject query, String collectionName, String sortName);
+    MongoPage<Orders> selectPagination(MongoPage<Orders> page, DBObject query, String collectionName, String sortNam, Sort.Direction direction);
 }

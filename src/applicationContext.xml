@@ -22,11 +22,6 @@
         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
     </bean>
 
-    <!-- 注入Bean -->
-    <bean id="personRepository" class="com.mongo.dao.impl.PersonRepositoryDaoImpl">
-        <property name="mongoTemplate" ref="mongoTemplate"></property>
-    </bean>
-
-    <context:annotation-config/>
+    <!--<context:annotation-config/>-->
 
 </beans>
