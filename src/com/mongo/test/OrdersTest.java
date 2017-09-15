@@ -23,6 +23,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 订单测试类
@@ -41,6 +42,12 @@ public class OrdersTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void getCollections() {
+        Set<String> collections = ordersDao.getCollections();
+        System.out.println("----------------------collections值=" + collections + "," + "当前类=OrdersTest.getCollections()");
     }
 
     /**
@@ -196,7 +203,7 @@ public class OrdersTest {
     @Test
     public void testFindPagination() throws ParseException { // 分页查询
         MongoPage<Orders> page = new MongoPage<>();
-        page.setPageNo(2);
+        page.setPageNo(1);
         page.setPageSize(3);
         page = ordersDao.selectPagination(page, new BasicDBObject("onumber", "001"), collectionName, "onumber", Sort.Direction.ASC);
         System.out.println("TotalCount：" + page.getRowCount());

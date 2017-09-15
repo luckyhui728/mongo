@@ -10,8 +10,15 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
 import java.util.List;
+import java.util.Set;
 
 public interface MongoBase<T> {
+
+    /**
+     * 查询所有集合名称
+     * @return
+     */
+    Set<String> getCollections();
 
     /**
      * 添加，如果ObjectId存在则覆盖

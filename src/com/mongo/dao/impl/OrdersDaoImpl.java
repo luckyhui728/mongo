@@ -11,12 +11,18 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Set;
 
 @Repository("ordersDao")
 public class OrdersDaoImpl implements OrdersDao {
 
     @Resource
     private MongoTemplate mongoTemplate;
+
+    @Override
+    public Set<String> getCollections() {
+        return mongoTemplate.getCollectionNames();
+    }
 
     @Override
     public void save(Orders object, String collectionName) {
